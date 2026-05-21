@@ -36,7 +36,7 @@ namespace Operator
     {
       for (const auto& item : deref(container))
       {
-        print(std::forward<decltype(item)>(item));
+        print(item);
       }
     }
   } // namespace util
