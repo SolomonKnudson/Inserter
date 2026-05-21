@@ -29,16 +29,14 @@ namespace Operator
       deref(container).cbegin();
       deref(container).cend();
     })
-    static auto display(const Container& container, Printer&& print)
+    static auto display(Container&& container, Printer&& print)
         OPERATOR_CREATE_TRAILING_RETURN(decltype(deref(container).cbegin(),
                                                  deref(container).cend(),
                                                  void()))
     {
-      for (auto it{deref(container).cbegin()}, end{deref(container).cend()};
-           it != end;
-           ++it)
+      for (const auto& item : deref(container))
       {
-        print(std::forward<decltype(*it)>(*it));
+        print(std::forward<decltype(item)>(item));
       }
     }
   } // namespace util
