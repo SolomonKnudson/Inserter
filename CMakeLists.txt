@@ -52,7 +52,6 @@ target_compile_options(debug_build_flags INTERFACE
   $<$<AND:$<CONFIG:Debug>,$<OR:$<CXX_COMPILER_ID:GNU>,$<CXX_COMPILER_ID:Clang>>>:
     -O0
     -g3
-    -fno-omit-frame-pointer
    >
 )
 
