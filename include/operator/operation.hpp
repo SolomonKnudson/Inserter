@@ -1,12 +1,14 @@
 #ifndef OPERATOR_OPERATION_HPP
 #define OPERATOR_OPERATION_HPP
-#include <operator/policies.hpp>
+#include <operator/deleter_policies.hpp>
+#include <operator/inserter_policies.hpp>
+#include <operator/misc_policies.hpp>
 
 #include <utility>
 namespace Operator
 {
   template <typename Tag, typename... Args>
-  static decltype(auto)
+  [[nodiscard]] static decltype(auto)
   operation(Args&&... args)
   {
     return policies::Operator<Tag>::operation(std::forward<Args>(args)...);
