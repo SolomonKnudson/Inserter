@@ -13,6 +13,13 @@ namespace Operator
   {
     return policies::Operator<Tag>::operation(std::forward<Args>(args)...);
   }
+
+  template <typename Function, typename... Args>
+  [[nodiscard]] static decltype(auto)
+  operation(Function&& function, Args&&... args)
+  {
+    return function(std::forward<Args>(args)...);
+  }
 } // namespace Operator
 #endif // OPERATOR_OPERATION_HPP
 

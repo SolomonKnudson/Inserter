@@ -69,8 +69,31 @@ main(int argc, char* argv[])
   operation<NoOp>(&test, 17, 43, 50, 23, 99);
   operation<Test>(&test, 17, 43, 50, 23, 99);
 
-  operation<DisplayContainer>(
-      &test, [](const auto& elem) { std::cout << elem << ' '; });
+  operation(
+      // NOTE: must handle arg packs. operation() will not call func per arg
+      [](const auto... elem)
+      {
+        std::cout << "operation<Function, Args>() test\n";
+        ((std::cout << elem << ' '), ...);
+        std::cout << '\n';
+      },
+      90,
+      200,
+      40,
+      50);
+
+  operation(
+      // NOTE: must pass template functions as forwarding lambdas
+      [](auto&& container)
+      {
+        return util::display(std::forward<decltype(container)>(container),
+                             [](const auto& elem)
+                             { std::cout << elem << ' '; });
+      },
+      test);
+
+  // operation<DisplayContainer>(
+  //     &test, [](const auto& elem) { std::cout << elem << ' '; });
   // util::display(&test, [](const auto& elem) { std::cout << elem << ' '; });
   return 0;
 }
