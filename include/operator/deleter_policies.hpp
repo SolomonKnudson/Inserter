@@ -59,7 +59,7 @@ namespace Operator::policies
         typename Deleter,
         typename = std::enable_if_t<std::is_invocable<Deleter, T*&>::value>>
     static decltype(auto)
-    operation(T*& ptr, Deleter&& deleter)
+    operation(Deleter&& deleter, T*& ptr)
     {
       return std::invoke(std::forward<Deleter>(deleter), ptr);
     }
@@ -69,7 +69,7 @@ namespace Operator::policies
               typename = std::enable_if_t<
                   std::is_invocable<Deleter, T* const&>::value>>
     static decltype(auto)
-    operation(T* const& ptr, Deleter&& deleter)
+    operation(Deleter&& deleter, T* const& ptr)
     {
       return std::invoke(std::forward<Deleter>(deleter), ptr);
     }
