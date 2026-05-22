@@ -30,11 +30,12 @@ namespace Operator
       deref(container).cend();
     })
     static auto display(Container&& container, Printer&& print)
-        OPERATOR_CREATE_TRAILING_RETURN(decltype(deref(container).cbegin(),
-                                                 deref(container).cend(),
-                                                 void()))
+        OPERATOR_CREATE_TRAILING_RETURN(
+            decltype(deref(std::forward<Container>(container)).cbegin(),
+                     deref(std::forward<Container>(container)).cend(),
+                     void()))
     {
-      for (const auto& item : deref(container))
+      for (const auto& item : deref(std::forward<Container>(container)))
       {
         print(item);
       }
