@@ -5,6 +5,7 @@
 // 3rd Party
 #include <type_traits/type_traits.hpp>
 // STL
+#include <iostream>
 #include <utility>
 
 namespace Operator
@@ -30,16 +31,20 @@ namespace Operator
       deref(container).cbegin();
       deref(container).cend();
     })
-    static auto display(Container&& container, Printer&& print)
+    static auto display(Container&& container,
+                        Printer&& printer,
+                        const std::string& prefix = "")
         OPERATOR_CREATE_TRAILING_RETURN(
             decltype(deref(std::forward<Container>(container)).cbegin(),
                      deref(std::forward<Container>(container)).cend(),
                      void()))
     {
+      std::cout << prefix;
       for (const auto& item : deref(std::forward<Container>(container)))
       {
-        print(item);
+        printer(item);
       }
+      std::cout << '\n';
     }
   } // namespace util
 } // namespace Operator
