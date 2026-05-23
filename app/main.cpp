@@ -73,7 +73,7 @@ main(int argc, char* argv[])
       // NOTE: must handle arg packs. operation() will not call func per arg
       [](const auto... elem)
       {
-        std::cout << "operation<Invoke>() test\n";
+        std::cout << "operation<Invoke>(): ";
         ((std::cout << elem << ' '), ...);
         std::cout << '\n';
       },
@@ -86,15 +86,15 @@ main(int argc, char* argv[])
       // NOTE: must pass template functions as forwarding lambdas
       [](auto&& container)
       {
+        std::cout << "operation<Invoke>(): ";
         return util::display(std::forward<decltype(container)>(container),
                              [](const auto& elem)
                              { std::cout << elem << ' '; });
       },
-      test);
+      &test);
 
-  // operation<DisplayContainer>(
-  //     &test, [](const auto& elem) { std::cout << elem << ' '; });
-  // util::display(&test, [](const auto& elem) { std::cout << elem << ' '; });
+  std::cout << '\n';
+  util::display(&test, [](const auto& elem) { std::cout << elem << ' '; });
   return 0;
 }
 

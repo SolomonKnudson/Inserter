@@ -20,7 +20,18 @@ target_compile_features(Operator INTERFACE
 set_target_properties(Operator PROPERTIES
   CXX_VISIBILITY_PRESET hidden
   VISIBILITY_INLINES_HIDDEN ON
+  CXX_STANDARD_REQUIRED ON
+  CXX_EXTENSIONS OFF
 )
+
+include(FetchContent)
+FetchContent_Declare(
+  TypeTraitsWrapper
+  GIT_REPOSITORY https://github.com/SolomonKnudson/TypeTraitsWrapper.git   
+  GIT_TAG main
+)
+FetchContent_MakeAvailable(TypeTraitsWrapper)
+target_link_libraries(Operator INTERFACE TypeTraitsWrapper) 
 
 #For internal development only
 if(PROJECT_IS_TOP_LEVEL)

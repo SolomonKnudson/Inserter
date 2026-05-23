@@ -1,8 +1,9 @@
 #ifndef OPERATOR_UTIL_HPP
 #define OPERATOR_UTIL_HPP
 #include <operator/macros.hpp>
-#include <operator/type_traits.hpp>
 
+// 3rd Party
+#include <type_traits/type_traits.hpp>
 // STL
 #include <utility>
 

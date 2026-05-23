@@ -5,6 +5,8 @@
 #include <operator/tags.hpp>
 #include <operator/util.hpp>
 
+// 3rd Party
+#include <type_traits/type_traits.hpp>
 // STL
 #include <functional>
 
@@ -54,10 +56,9 @@ namespace Operator::policies
 
   template <> struct Policy<tags::CustomDeleter>
   {
-    template <
-        typename T,
-        typename Deleter,
-        typename = std::enable_if_t<std::is_invocable<Deleter, T*&>::value>>
+    template <typename T,
+              typename Deleter,
+              typename = type_traits::EnableIfInvocable<Deleter, T*&>>
     static decltype(auto)
     operation(Deleter&& deleter, T*& ptr)
     {
@@ -66,8 +67,7 @@ namespace Operator::policies
 
     template <typename T,
               typename Deleter,
-              typename = std::enable_if_t<
-                  std::is_invocable<Deleter, T* const&>::value>>
+              typename = type_traits::EnableIfInvocable<Deleter, T* const&>>
     static decltype(auto)
     operation(Deleter&& deleter, T* const& ptr)
     {
