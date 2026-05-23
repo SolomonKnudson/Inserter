@@ -58,7 +58,7 @@ namespace Operator::policies
   {
     template <typename T,
               typename Deleter,
-              typename = type_traits::EnableIfInvocable<Deleter, T*&>>
+              typename = type_traits::enable_if_invocable<Deleter, T*&>>
     static decltype(auto)
     operation(Deleter&& deleter, T*& ptr)
     {
@@ -67,7 +67,7 @@ namespace Operator::policies
 
     template <typename T,
               typename Deleter,
-              typename = type_traits::EnableIfInvocable<Deleter, T* const&>>
+              typename = type_traits::enable_if_invocable<Deleter, T* const&>>
     static decltype(auto)
     operation(Deleter&& deleter, T* const& ptr)
     {
