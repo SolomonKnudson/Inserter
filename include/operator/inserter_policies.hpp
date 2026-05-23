@@ -7,7 +7,7 @@
 
 namespace Operator::policies
 {
-  template <> struct Operator<tags::push_front>
+  template <> struct Policy<tags::push_front>
   {
     template <typename Container, typename Value>
     OPERATOR_CREATE_REQUIRES(concepts::HasPushFront<Container, Value>)
@@ -21,7 +21,7 @@ namespace Operator::policies
     }
   };
 
-  template <> struct Operator<tags::emplace_front>
+  template <> struct Policy<tags::emplace_front>
   {
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(concepts::HasEmplaceFront<Container, Args...>)
@@ -43,7 +43,7 @@ namespace Operator::policies
     }
   };
 
-  template <> struct Operator<tags::push_back>
+  template <> struct Policy<tags::push_back>
   {
     template <typename Container, typename Value>
     OPERATOR_CREATE_REQUIRES(concepts::HasPushBack<Container, Value>)
@@ -57,7 +57,7 @@ namespace Operator::policies
     }
   };
 
-  template <> struct Operator<tags::emplace_back>
+  template <> struct Policy<tags::emplace_back>
   {
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(concepts::HasEmplaceBack<Container, Args...>)

@@ -2,7 +2,7 @@
 #define OPERATOR_POLICIES_HPP
 namespace Operator::policies
 {
-  template <typename Tag> struct Operator
+  template <typename Tag> struct Policy
   {
   };
 } // namespace Operator::policies

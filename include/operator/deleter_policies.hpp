@@ -10,7 +10,7 @@
 
 namespace Operator::policies
 {
-  template <> struct Operator<tags::DeleteScalar>
+  template <> struct Policy<tags::DeleteScalar>
   {
     template <typename T>
     static void
@@ -31,7 +31,7 @@ namespace Operator::policies
     }
   };
 
-  template <> struct Operator<tags::DeleteArray>
+  template <> struct Policy<tags::DeleteArray>
   {
     template <typename T>
     static void
@@ -52,7 +52,7 @@ namespace Operator::policies
     }
   };
 
-  template <> struct Operator<tags::CustomDeleter>
+  template <> struct Policy<tags::CustomDeleter>
   {
     template <
         typename T,
