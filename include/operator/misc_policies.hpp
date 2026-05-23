@@ -4,9 +4,26 @@
 #include <operator/tags.hpp>
 #include <operator/util.hpp>
 
+// STL
+#include <functional>
+
 namespace Operator::policies
 {
-  template <> struct Operator<tags::DisplayContainer>
+  template <> struct Policy<tags::Invoke>
+  {
+    template <typename Function,
+              typename... Args,
+              typename =
+                  std::enable_if_t<std::is_invocable<Function, Args...>::value>>
+    static decltype(auto)
+    operation(Function&& function, Args&&... args)
+    {
+      return std::invoke(std::forward<Function>(function),
+                         std::forward<Args>(args)...);
+    }
+  };
+
+  template <> struct Policy<tags::DisplayContainer>
   {
     template <typename Container, typename Printer>
     static void
@@ -17,7 +34,7 @@ namespace Operator::policies
     }
   };
 
-  template <> struct Operator<tags::NoOp>
+  template <> struct Policy<tags::NoOp>
   {
     template <typename... Args>
     static void

@@ -22,6 +22,7 @@ namespace Operator::tags
   OPERATOR_CREATE_TAG(CustomDeleter)
 
   // Misc
+  OPERATOR_CREATE_TAG(Invoke);
   OPERATOR_CREATE_TAG(DisplayContainer);
   OPERATOR_CREATE_TAG(NoOp)
 } // namespace Operator::tags

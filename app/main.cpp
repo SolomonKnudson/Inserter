@@ -5,7 +5,7 @@
 #include <list>
 
 OPERATOR_CREATE_TAG(Test);
-template <> struct Operator::policies::Operator<Test>
+template <> struct Operator::policies::Policy<Test>
 {
   template <typename... Args>
   static void
@@ -69,11 +69,11 @@ main(int argc, char* argv[])
   operation<NoOp>(&test, 17, 43, 50, 23, 99);
   operation<Test>(&test, 17, 43, 50, 23, 99);
 
-  operation(
+  operation<Invoke>(
       // NOTE: must handle arg packs. operation() will not call func per arg
       [](const auto... elem)
       {
-        std::cout << "operation<Function, Args>() test\n";
+        std::cout << "operation<Invoke>() test\n";
         ((std::cout << elem << ' '), ...);
         std::cout << '\n';
       },
@@ -82,7 +82,7 @@ main(int argc, char* argv[])
       40,
       50);
 
-  operation(
+  operation<Invoke>(
       // NOTE: must pass template functions as forwarding lambdas
       [](auto&& container)
       {
