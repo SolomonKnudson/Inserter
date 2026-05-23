@@ -4,6 +4,8 @@
 #include <operator/tags.hpp>
 #include <operator/util.hpp>
 
+// 3rd Party
+#include <type_traits/type_traits.hpp>
 // STL
 #include <functional>
 
@@ -13,8 +15,7 @@ namespace Operator::policies
   {
     template <typename Function,
               typename... Args,
-              typename =
-                  std::enable_if_t<std::is_invocable<Function, Args...>::value>>
+              typename = type_traits::EnableIfInvocable<Function, Args...>>
     static decltype(auto)
     operation(Function&& function, Args&&... args)
     {

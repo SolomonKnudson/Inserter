@@ -94,7 +94,9 @@ main(int argc, char* argv[])
       &test);
 
   std::cout << '\n';
-  util::display(&test, [](const auto& elem) { std::cout << elem << ' '; });
+  operation<DisplayContainer>(
+      test, [](const auto& elem) { std::cout << elem << ' '; });
+  // util::display(&test, [](const auto& elem) { std::cout << elem << ' '; });
   return 0;
 }
 

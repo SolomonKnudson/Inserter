@@ -10,18 +10,11 @@ project(Operator LANGUAGES CXX)
 add_library(Operator INTERFACE)
 
 target_include_directories(Operator INTERFACE 
-  $<BUILD_LOCAL_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include/>
+  ${CMAKE_CURRENT_LIST_DIR}/include/
 )
 
 target_compile_features(Operator INTERFACE
   cxx_std_17
-)
-
-set_target_properties(Operator PROPERTIES
-  CXX_VISIBILITY_PRESET hidden
-  VISIBILITY_INLINES_HIDDEN ON
-  CXX_STANDARD_REQUIRED ON
-  CXX_EXTENSIONS OFF
 )
 
 include(FetchContent)
