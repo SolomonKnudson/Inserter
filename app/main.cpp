@@ -70,7 +70,7 @@ main(int argc, char* argv[])
   operation<Test>(&test, 17, 43, 50, 23, 99);
 
   operation<Invoke>(
-      // NOTE: must handle arg packs. operation() will not call func per arg
+      // NOTE: Policy:Invoke will not handle arg pack
       [](const auto... elem)
       {
         std::cout << "operation<Invoke>(): ";
@@ -83,6 +83,7 @@ main(int argc, char* argv[])
       50);
 
   operation<FoldInvoke>(
+      // NOTE: Policy:FoldInvoke will handle arg pack
       [](const auto& elem)
       { std::cout << "operation<FoldInvoke>(): " << elem << '\n'; },
       90,
@@ -91,19 +92,20 @@ main(int argc, char* argv[])
       50);
 
   operation<Invoke>(
-      // NOTE: must pass template functions as forwarding lambdas
+      // NOTE: Policy:Invoke/FoldInvoke must have
+      // template functions passed as forwarding lambdas
       [](auto&& container)
       {
-        std::cout << "operation<Invoke>(): ";
-        return util::display(std::forward<decltype(container)>(container),
-                             [](const auto& elem)
-                             { std::cout << elem << ' '; });
+        return util::display(
+            std::forward<decltype(container)>(container),
+            [](const auto& elem) { std::cout << elem << ' '; },
+            "operation<Invoke>(): ");
       },
       &test);
-
-  std::cout << '\n';
   operation<DisplayContainer>(
-      test, [](const auto& elem) { std::cout << elem << ' '; });
+      test,
+      [](const auto& elem) { std::cout << elem << ' '; },
+      "operation<DisplayContainer>(): ");
   // util::display(&test, [](const auto& elem) { std::cout << elem << ' '; });
   return 0;
 }

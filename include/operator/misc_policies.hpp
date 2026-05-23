@@ -11,6 +11,8 @@
 
 namespace Operator::policies
 {
+  // NOTE: Policy:Invoke/FoldInvoke must have
+  // template functions passed as forwarding lambdas
   template <> struct Policy<tags::Invoke>
   {
     template <typename Function,
@@ -19,6 +21,7 @@ namespace Operator::policies
     static decltype(auto)
     operation(Function&& function, Args&&... args)
     {
+      // NOTE: Policy:Invoke will not handle arg pack
       return std::invoke(std::forward<Function>(function),
                          std::forward<Args>(args)...);
     }
@@ -34,6 +37,7 @@ namespace Operator::policies
     static decltype(auto)
     operation(Function&& function, Args&&... args)
     {
+      // NOTE: Policy:FoldInvoke will handle arg pack
       return (std::invoke(std::forward<Function>(function),
                           std::forward<Args>(args)),
               ...);
@@ -44,10 +48,13 @@ namespace Operator::policies
   {
     template <typename Container, typename Printer>
     static void
-    operation(Container&& container, Printer&& printer)
+    operation(Container&& container,
+              Printer&& printer,
+              const std::string& prefix = "")
     {
       util::display(std::forward<Container>(container),
-                    std::forward<Printer>(printer));
+                    std::forward<Printer>(printer),
+                    prefix);
     }
   };
 
