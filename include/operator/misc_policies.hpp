@@ -15,12 +15,28 @@ namespace Operator::policies
   {
     template <typename Function,
               typename... Args,
-              typename = type_traits::EnableIfInvocable<Function, Args...>>
+              typename = type_traits::enable_if_invocable<Function, Args...>>
     static decltype(auto)
     operation(Function&& function, Args&&... args)
     {
       return std::invoke(std::forward<Function>(function),
                          std::forward<Args>(args)...);
+    }
+  };
+
+  template <> struct Policy<tags::FoldInvoke>
+  {
+    template <
+        typename Function,
+        typename... Args,
+        typename =
+            type_traits::enable_if_separate_args_invocable<Function, Args...>>
+    static decltype(auto)
+    operation(Function&& function, Args&&... args)
+    {
+      return (std::invoke(std::forward<Function>(function),
+                          std::forward<Args>(args)),
+              ...);
     }
   };
 

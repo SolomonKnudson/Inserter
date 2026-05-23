@@ -82,6 +82,14 @@ main(int argc, char* argv[])
       40,
       50);
 
+  operation<FoldInvoke>(
+      [](const auto& elem)
+      { std::cout << "operation<FoldInvoke>(): " << elem << '\n'; },
+      90,
+      200,
+      40,
+      50);
+
   operation<Invoke>(
       // NOTE: must pass template functions as forwarding lambdas
       [](auto&& container)

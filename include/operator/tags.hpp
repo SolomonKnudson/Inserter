@@ -23,6 +23,7 @@ namespace Operator::tags
 
   // Misc
   OPERATOR_CREATE_TAG(Invoke);
+  OPERATOR_CREATE_TAG(FoldInvoke);
   OPERATOR_CREATE_TAG(DisplayContainer);
   OPERATOR_CREATE_TAG(NoOp)
 } // namespace Operator::tags
