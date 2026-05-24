@@ -1,8 +1,7 @@
-#ifndef OPERATOR_MISC_POLICIES_HPP
-#define OPERATOR_MISC_POLICIES_HPP
-#include <operator/policies.hpp>
+#ifndef OPERATOR_INVOKE_POLICIES_HPP
+#define OPERATOR_INVOKE_POLICIES_HPP
+#include <operator/policies/policies.hpp>
 #include <operator/tags.hpp>
-#include <operator/util.hpp>
 
 // 3rd Party
 #include <type_traits/type_traits.hpp>
@@ -19,7 +18,7 @@ namespace Operator::policies
               typename... Args,
               typename = type_traits::enable_if_invocable<Function, Args...>>
     static decltype(auto)
-    operation(Function&& function, Args&&... args)
+    invoke(Function&& function, Args&&... args)
     {
       // NOTE: Policy:Invoke will not handle arg pack
       return std::invoke(std::forward<Function>(function),
@@ -35,7 +34,7 @@ namespace Operator::policies
         typename =
             type_traits::enable_if_separate_args_invocable<Function, Args...>>
     static decltype(auto)
-    operation(Function&& function, Args&&... args)
+    invoke(Function&& function, Args&&... args)
     {
       // NOTE: Policy:FoldInvoke will handle arg pack
       return (std::invoke(std::forward<Function>(function),
@@ -43,29 +42,6 @@ namespace Operator::policies
               ...);
     }
   };
-
-  template <> struct Policy<tags::DisplayContainer>
-  {
-    template <typename Container, typename Printer>
-    static void
-    operation(Container&& container,
-              Printer&& printer,
-              const std::string& prefix = "")
-    {
-      util::display(std::forward<Container>(container),
-                    std::forward<Printer>(printer),
-                    prefix);
-    }
-  };
-
-  template <> struct Policy<tags::NoOp>
-  {
-    template <typename... Args>
-    static void
-    operation(Args&&...)
-    {
-    }
-  };
 } // namespace Operator::policies
-#endif // OPERATOR_MISC_POLICIES_HPP
+#endif // OPERATOR_INVOKE_POLICIES_HPP
 
