@@ -1,10 +1,10 @@
 #ifndef OPERATOR_CONCEPTS_HPP
 #define OPERATOR_CONCEPTS_HPP
 #if defined(__cpp_concepts)
-#include <operator/macros.hpp>
+#include <operator/internal/macros.hpp>
 #include <operator/util.hpp>
 
-namespace Operator::concepts
+namespace Operator::internal::concepts
 {
   /*  HasMethod Concepts
        *  template <typename Type, typename... Args>
@@ -22,6 +22,6 @@ namespace Operator::concepts
   //Back insertions
   OPERATOR_CREATE_HAS_METHOD_CONCEPT(PushBack, push_back);
   OPERATOR_CREATE_HAS_METHOD_CONCEPT(EmplaceBack, emplace_back);
-} // namespace Operator::concepts
+} // namespace Operator::internal::concepts
 #endif // __cpp_concepts
 #endif // OPERATOR_CONCEPTS_HPP

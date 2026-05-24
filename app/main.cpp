@@ -69,13 +69,13 @@ main(int argc, char* argv[])
         return util::display(
             std::forward<decltype(container)>(container),
             [](const auto& elem) { std::cout << elem << ' '; },
-            "operation<Invoke>(): ");
+            "operation<Invoke>(util::display, container): ");
       },
       &test);
   operation<DisplayContainer>(
       test,
       [](const auto& elem) { std::cout << elem << ' '; },
-      "operation<DisplayContainer>(): ");
+      "operation<DisplayContainer>(container, printer): ");
   // util::display(&test, [](const auto& elem) { std::cout << elem << ' '; });
   return 0;
 }
