@@ -5,7 +5,7 @@
 #include <list>
 
 OPERATOR_CREATE_TAG(Test);
-template <> struct Operator::policies::Policy<Test>
+template <> struct Operator::policy::Policy<Test>
 {
   template <typename... Args>
   static void
@@ -20,7 +20,6 @@ main(int argc, char* argv[])
 {
   using namespace Operator;
   using namespace Operator::tags;
-  using namespace Operator::policies;
 
   std::cout << "Can deref int*: " << std::boolalpha
             << type_traits::can_deref_v<int*> << '\n';
