@@ -16,14 +16,11 @@ namespace Operator::tags
   OPERATOR_CREATE_TAG(push_back);
   OPERATOR_CREATE_TAG(emplace_back);
 
-  // Deleters
-  OPERATOR_CREATE_TAG(DeleteScalar)
-  OPERATOR_CREATE_TAG(DeleteArray)
-  OPERATOR_CREATE_TAG(CustomDeleter)
-
-  // Misc
+  // Invoke
   OPERATOR_CREATE_TAG(Invoke);
   OPERATOR_CREATE_TAG(FoldInvoke);
+
+  // Misc
   OPERATOR_CREATE_TAG(DisplayContainer);
   OPERATOR_CREATE_TAG(NoOp)
 } // namespace Operator::tags
