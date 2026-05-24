@@ -1,6 +1,6 @@
 #ifndef OPERATOR_INVOKE_POLICIES_HPP
 #define OPERATOR_INVOKE_POLICIES_HPP
-#include <operator/policies/policies.hpp>
+#include <operator/policy.hpp>
 #include <operator/tags.hpp>
 
 // 3rd Party
@@ -8,7 +8,7 @@
 // STL
 #include <functional>
 
-namespace Operator::policies
+namespace Operator::policy
 {
   // NOTE: Policy:Invoke/FoldInvoke must have
   // template functions passed as forwarding lambdas
@@ -42,6 +42,6 @@ namespace Operator::policies
               ...);
     }
   };
-} // namespace Operator::policies
+} // namespace Operator::policy
 #endif // OPERATOR_INVOKE_POLICIES_HPP
 

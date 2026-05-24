@@ -1,6 +1,6 @@
 #ifndef OPERATOR_UTIL_HPP
 #define OPERATOR_UTIL_HPP
-#include <operator/macros.hpp>
+#include <operator/internal/macros.hpp>
 
 // 3rd Party
 #include <type_traits/type_traits.hpp>

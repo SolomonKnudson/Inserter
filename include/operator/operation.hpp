@@ -1,8 +1,8 @@
 #ifndef OPERATOR_OPERATION_HPP
 #define OPERATOR_OPERATION_HPP
-#include <operator/policies/inserter_policies.hpp>
-#include <operator/policies/invoke_policies.hpp>
-#include <operator/policies/misc_policies.hpp>
+#include <operator/internal/policies/inserter.hpp>
+#include <operator/internal/policies/invoke.hpp>
+#include <operator/internal/policies/miscellaneous.hpp>
 
 // STL
 #include <utility>
@@ -13,7 +13,7 @@ namespace Operator
   [[nodiscard]] static decltype(auto)
   operation(Args&&... args)
   {
-    return policies::Policy<Tag>::invoke(std::forward<Args>(args)...);
+    return policy::Policy<Tag>::invoke(std::forward<Args>(args)...);
   }
 } // namespace Operator
 #endif // OPERATOR_OPERATION_HPP

@@ -1,11 +1,11 @@
 #ifndef OPERATOR_INSERTER_POLICIES_HPP
 #define OPERATOR_INSERTER_POLICIES_HPP
-#include <operator/concepts.hpp>
-#include <operator/policies/policies.hpp>
+#include <operator/internal/concepts.hpp>
+#include <operator/policy.hpp>
 #include <operator/tags.hpp>
 #include <operator/util.hpp>
 
-namespace Operator::policies
+namespace Operator::policy
 {
   template <> struct Policy<tags::push_front>
   {
@@ -78,6 +78,6 @@ namespace Operator::policies
       }
     }
   };
-} // namespace Operator::policies
+} // namespace Operator::policy
 #endif // OPERATOR_INSERTER_POLICIES_HPP
 

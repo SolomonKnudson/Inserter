@@ -1,13 +1,13 @@
-#ifndef OPERATOR_MISC_POLICIES_HPP
-#define OPERATOR_MISC_POLICIES_HPP
-#include <operator/policies/policies.hpp>
+#ifndef OPERATOR_MISCELLANEOUS_POLICIES_HPP
+#define OPERATOR_MISCELLANEOUS_POLICIES_HPP
+#include <operator/policy.hpp>
 #include <operator/tags.hpp>
 #include <operator/util.hpp>
 
 // 3rd Party
 #include <type_traits/type_traits.hpp>
 
-namespace Operator::policies
+namespace Operator::policy
 {
   template <> struct Policy<tags::DisplayContainer>
   {
@@ -31,6 +31,6 @@ namespace Operator::policies
     {
     }
   };
-} // namespace Operator::policies
-#endif // OPERATOR_MISC_POLICIES_HPP
+} // namespace Operator::policy
+#endif // OPERATOR_MISCELLANEOUS_POLICIES_HPP
 
