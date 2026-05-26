@@ -31,14 +31,15 @@ namespace Operator
       deref(container).cbegin();
       deref(container).cend();
     })
-    static auto display_container(Container&& container,
-                                  Printer&& printer,
-                                  const std::string& prefix = "",
-                                  const std::string& suffix = "\n")
-        OPERATOR_CREATE_TRAILING_RETURN(
-            decltype(deref(std::forward<Container>(container)).cbegin(),
-                     deref(std::forward<Container>(container)).cend(),
-                     void()))
+    static OPERATOR_AUTO_RETURN
+        display_container(Container&& container,
+                          Printer&& printer,
+                          const std::string& prefix = "",
+                          const std::string& suffix = "\n")
+            OPERATOR_CREATE_TRAILING_RETURN(
+                decltype(deref(std::forward<Container>(container)).cbegin(),
+                         deref(std::forward<Container>(container)).cend(),
+                         void()))
     {
       std::cout << prefix;
       for (const auto& item : deref(std::forward<Container>(container)))

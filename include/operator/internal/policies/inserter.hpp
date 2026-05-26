@@ -12,7 +12,7 @@ namespace Operator::policy
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(
         internal::concepts::HasPushFront<Container, Args...>)
-    static auto invoke(Container&& container, Args&&... args)
+    static OPERATOR_AUTO_RETURN invoke(Container&& container, Args&&... args)
         OPERATOR_CREATE_TRAILING_RETURN(
             decltype((util::deref(std::forward<Container>(container))
                           .push_front(std::forward<Args>(args)),
@@ -20,7 +20,7 @@ namespace Operator::policy
     {
       // Args >=2 to account for container that must be passed
       static_assert(sizeof...(Args) >= 2,
-                    "Operator::Policy::Policy<push_front>(args...): "
+                    "Operator::policy::Policy<push_front>(args...): "
                     "container.push_front(value) must "
                     "be called with at least one value!");
       return (util::deref(std::forward<Container>(container))
@@ -34,7 +34,7 @@ namespace Operator::policy
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(
         internal::concepts::HasEmplaceFront<Container, Args...>)
-    static auto invoke(Container&& container, Args&&... args)
+    static OPERATOR_AUTO_RETURN invoke(Container&& container, Args&&... args)
         OPERATOR_CREATE_TRAILING_RETURN(
             decltype((util::deref(std::forward<Container>(container))
                           .emplace_front(std::forward<Args>(args)),
@@ -58,7 +58,7 @@ namespace Operator::policy
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(
         internal::concepts::HasPushBack<Container, Args...>)
-    static auto invoke(Container&& container, Args&&... args)
+    static OPERATOR_AUTO_RETURN invoke(Container&& container, Args&&... args)
         OPERATOR_CREATE_TRAILING_RETURN(
             decltype((util::deref(std::forward<Container>(container))
                           .push_back(std::forward<Args>(args)),
@@ -66,7 +66,7 @@ namespace Operator::policy
     {
       // Args >=2 to account for container that must be passed
       static_assert(sizeof...(Args) >= 2,
-                    "Operator::Policy::Policy<push_back>(args...): "
+                    "Operator::policy::Policy<push_back>(args...): "
                     "container.push_back(value) must "
                     "be called with at least one value!");
       return (util::deref(std::forward<Container>(container))
@@ -80,7 +80,7 @@ namespace Operator::policy
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(
         internal::concepts::HasEmplaceBack<Container, Args...>)
-    static auto invoke(Container&& container, Args&&... args)
+    static OPERATOR_AUTO_RETURN invoke(Container&& container, Args&&... args)
         OPERATOR_CREATE_TRAILING_RETURN(
             decltype((util::deref(std::forward<Container>(container))
                           .emplace_back(std::forward<Args>(args)),
