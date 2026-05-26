@@ -6,8 +6,18 @@
 
 #define OPERATOR_CREATE_HAS_METHOD_CONCEPT(operation, method)                  \
   template <typename Type, typename... Args>                                   \
-  concept Has##operation = OPERATOR_CREATE_REQUIRES(                           \
-      (Type type, Args&&... args) { util::deref(type).method(args...); });
+  concept Has##operation = OPERATOR_CREATE_REQUIRES((Type&& type,              \
+                                                     Args&&... args) {         \
+    util::deref(std::forward<Type>(type)).method(std::forward<Args>(args)...); \
+  });
+
+#define OPERATOR_CREATE_HAS_FOLD_METHOD_CONCEPT(operation, method)             \
+  template <typename Type, typename... Args>                                   \
+  concept Has##operation = OPERATOR_CREATE_REQUIRES((Type&& type,              \
+                                                     Args&&... args) {         \
+    (util::deref(std::forward<Type>(type)).method(std::forward<Args>(args)),   \
+     ...);                                                                     \
+  });
 #else
 #define OPERATOR_CREATE_REQUIRES(...)
 #define OPERATOR_CREATE_TRAILING_RETURN(...) ->__VA_ARGS__

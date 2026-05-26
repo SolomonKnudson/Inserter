@@ -9,15 +9,23 @@ namespace Operator::policy
 {
   template <> struct Policy<tags::push_front>
   {
-    template <typename Container, typename Value>
-    OPERATOR_CREATE_REQUIRES(internal::concepts::HasPushFront<Container, Value>)
-    static auto invoke(Container&& container, Value&& value)
+    template <typename Container, typename... Args>
+    OPERATOR_CREATE_REQUIRES(
+        internal::concepts::HasPushFront<Container, Args...>)
+    static auto invoke(Container&& container, Args&&... args)
         OPERATOR_CREATE_TRAILING_RETURN(
-            decltype(util::deref(std::forward<Container>(container))
-                         .push_front(std::forward<Value>(value))))
+            decltype((util::deref(std::forward<Container>(container))
+                          .push_front(std::forward<Args>(args)),
+                      ...)))
     {
-      return util::deref(std::forward<Container>(container))
-          .push_front(std::forward<Value>(value));
+      // Args >=2 to account for container that must be passed
+      static_assert(sizeof...(Args) >= 2,
+                    "Operator::Policy::Policy<push_front>(args...): "
+                    "container.push_front(value) must "
+                    "be called with at least one value!");
+      return (util::deref(std::forward<Container>(container))
+                  .push_front(std::forward<Args>(args)),
+              ...);
     }
   };
 
@@ -28,8 +36,9 @@ namespace Operator::policy
         internal::concepts::HasEmplaceFront<Container, Args...>)
     static auto invoke(Container&& container, Args&&... args)
         OPERATOR_CREATE_TRAILING_RETURN(
-            decltype(util::deref(std::forward<Container>(container))
-                         .emplace_front(std::forward<Args>(args)...)))
+            decltype((util::deref(std::forward<Container>(container))
+                          .emplace_front(std::forward<Args>(args)),
+                      ...)))
     {
       if constexpr (sizeof...(Args) == 0)
       {
@@ -46,15 +55,23 @@ namespace Operator::policy
 
   template <> struct Policy<tags::push_back>
   {
-    template <typename Container, typename Value>
-    OPERATOR_CREATE_REQUIRES(internal::concepts::HasPushBack<Container, Value>)
-    static auto invoke(Container&& container, Value&& value)
+    template <typename Container, typename... Args>
+    OPERATOR_CREATE_REQUIRES(
+        internal::concepts::HasPushBack<Container, Args...>)
+    static auto invoke(Container&& container, Args&&... args)
         OPERATOR_CREATE_TRAILING_RETURN(
-            decltype(util::deref(std::forward<Container>(container))
-                         .push_back(std::forward<Value>(value))))
+            decltype((util::deref(std::forward<Container>(container))
+                          .push_back(std::forward<Args>(args)),
+                      ...)))
     {
-      return util::deref(std::forward<Container>(container))
-          .push_back(std::forward<Value>(value));
+      // Args >=2 to account for container that must be passed
+      static_assert(sizeof...(Args) >= 2,
+                    "Operator::Policy::Policy<push_back>(args...): "
+                    "container.push_back(value) must "
+                    "be called with at least one value!");
+      return (util::deref(std::forward<Container>(container))
+                  .push_back(std::forward<Args>(args)),
+              ...);
     }
   };
 
@@ -65,8 +82,9 @@ namespace Operator::policy
         internal::concepts::HasEmplaceBack<Container, Args...>)
     static auto invoke(Container&& container, Args&&... args)
         OPERATOR_CREATE_TRAILING_RETURN(
-            decltype(util::deref(std::forward<Container>(container))
-                         .emplace_back(std::forward<Args>(args)...)))
+            decltype((util::deref(std::forward<Container>(container))
+                          .emplace_back(std::forward<Args>(args)),
+                      ...)))
     {
       if constexpr (sizeof...(Args) == 0)
       {
@@ -82,4 +100,3 @@ namespace Operator::policy
   };
 } // namespace Operator::policy
 #endif // OPERATOR_INSERTER_POLICIES_HPP
-

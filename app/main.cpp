@@ -11,7 +11,7 @@ template <> struct Operator::policy::Policy<Test>
   static void
   invoke(Args&&...)
   {
-    std::cout << "'3rd party' Operator<Tag>::operation() test\n";
+    std::cout << "operation<Test>(args...)\n";
   }
 };
 
@@ -25,19 +25,25 @@ main(int argc, char* argv[])
             << type_traits::can_deref_v<int*> << '\n';
 
   std::list<int> test{};
-  // std::vector<int> test{};
+  //std::vector<int> test{};
   // std::vector<std::pair<int, int>> test{};
 
-  auto well{operation<emplace_front>(&test, 20, 54, 50)};
-  auto ref{operation<emplace_back>(&test, 17)};
+  //test.emplace_back(20, 30, 40);
+  //auto well{operation<emplace_front>(&test, 20, 16)};
+  auto ref{operation<emplace_back>(&test, 17, 90)};
 
-  std::cout << "Container<int>::emplace_front(): " << well << '\n';
+  //std::cout << "Container<int>::emplace_front(): " << well << '\n';
   std::cout << "Container<int>::emplace_back(): " << ref << '\n';
 
-  operation<push_back>(&test, 90);
+  // Assert check
+  //operation<push_back>(test);
+  //operation<push_front>(&test);
+
+  operation<push_back>(test, 999, 444);
+  operation<push_front>(&test, 0, 4);
 
   operation<NoOp>(&test, 17, 43, 50, 23, 99);
-  operation<Test>(&test, 17, 43, 50, 23, 99);
+  operation<Test>(test, 17, 43, 50, 23, 99);
 
   operation<Invoke>(
       // NOTE: Policy:Invoke will not handle arg pack
@@ -66,17 +72,21 @@ main(int argc, char* argv[])
       // template functions passed as forwarding lambdas
       [](auto&& container)
       {
-        return util::display(
+        return util::display_container(
             std::forward<decltype(container)>(container),
             [](const auto& elem) { std::cout << elem << ' '; },
             "operation<Invoke>(util::display, container): ");
       },
       &test);
+
   operation<DisplayContainer>(
       test,
       [](const auto& elem) { std::cout << elem << ' '; },
       "operation<DisplayContainer>(container, printer): ");
-  // util::display(&test, [](const auto& elem) { std::cout << elem << ' '; });
+
+  util::display_container(
+      &test,
+      [](const auto& elem) { std::cout << elem << ' '; },
+      "util::display_container(container, printer): ");
   return 0;
 }
-
