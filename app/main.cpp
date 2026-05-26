@@ -28,16 +28,15 @@ main(int argc, char* argv[])
   //std::vector<int> test{};
   // std::vector<std::pair<int, int>> test{};
 
-  //test.emplace_back(20, 30, 40);
-  //auto well{operation<emplace_front>(&test, 20, 16)};
+  auto well{operation<emplace_front>(&test, 20, 16)};
   auto ref{operation<emplace_back>(&test, 17, 90)};
 
-  //std::cout << "Container<int>::emplace_front(): " << well << '\n';
+  std::cout << "Container<int>::emplace_front(): " << well << '\n';
   std::cout << "Container<int>::emplace_back(): " << ref << '\n';
 
   // Assert check
-  //operation<push_back>(test);
-  //operation<push_front>(&test);
+  // operation<push_back>(test);
+  // operation<push_front>(&test);
 
   operation<push_back>(test, 999, 444);
   operation<push_front>(&test, 0, 4);
@@ -49,7 +48,7 @@ main(int argc, char* argv[])
       // NOTE: Policy:Invoke will not handle arg pack
       [](const auto... elem)
       {
-        std::cout << "operation<Invoke>(): ";
+        std::cout << "operation<Invoke>(args...): ";
         ((std::cout << elem << ' '), ...);
         std::cout << '\n';
       },
@@ -61,7 +60,7 @@ main(int argc, char* argv[])
   operation<FoldInvoke>(
       // NOTE: Policy:FoldInvoke will handle arg pack
       [](const auto& elem)
-      { std::cout << "operation<FoldInvoke>(): " << elem << '\n'; },
+      { std::cout << "operation<FoldInvoke>(args...): " << elem << '\n'; },
       90,
       200,
       40,

@@ -1,8 +1,6 @@
 #ifndef OPERATOR_OPERATION_HPP
 #define OPERATOR_OPERATION_HPP
-#include <operator/internal/policies/inserter.hpp>
-#include <operator/internal/policies/invoke.hpp>
-#include <operator/internal/policies/miscellaneous.hpp>
+#include <operator/internal/policies/policies.hpp>
 
 // STL
 #include <utility>
