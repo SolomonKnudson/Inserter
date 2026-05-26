@@ -31,9 +31,10 @@ namespace Operator
       deref(container).cbegin();
       deref(container).cend();
     })
-    static auto display(Container&& container,
-                        Printer&& printer,
-                        const std::string& prefix = "")
+    static auto display_container(Container&& container,
+                                  Printer&& printer,
+                                  const std::string& prefix = "",
+                                  const std::string& suffix = "\n")
         OPERATOR_CREATE_TRAILING_RETURN(
             decltype(deref(std::forward<Container>(container)).cbegin(),
                      deref(std::forward<Container>(container)).cend(),
@@ -44,7 +45,7 @@ namespace Operator
       {
         printer(item);
       }
-      std::cout << '\n';
+      std::cout << suffix;
     }
   } // namespace util
 } // namespace Operator

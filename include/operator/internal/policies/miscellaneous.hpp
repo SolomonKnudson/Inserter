@@ -15,11 +15,13 @@ namespace Operator::policy
     static void
     invoke(Container&& container,
            Printer&& printer,
-           const std::string& prefix = "")
+           const std::string& prefix = "",
+           const std::string& suffix = "\n")
     {
-      util::display(std::forward<Container>(container),
-                    std::forward<Printer>(printer),
-                    prefix);
+      util::display_container(std::forward<Container>(container),
+                              std::forward<Printer>(printer),
+                              prefix,
+                              suffix);
     }
   };
 
@@ -33,4 +35,3 @@ namespace Operator::policy
   };
 } // namespace Operator::policy
 #endif // OPERATOR_MISCELLANEOUS_POLICIES_HPP
-
