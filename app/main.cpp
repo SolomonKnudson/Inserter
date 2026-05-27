@@ -9,9 +9,11 @@ template <> struct Operator::policy::Policy<Test>
 {
   template <typename... Args>
   static void
-  invoke(Args&&...)
+  invoke(Args&&... args)
   {
-    std::cout << "operation<Test>(args...)\n";
+    (Operator::operation<Operator::tags::cout>(
+         "operation<Test>(args...): ", std::forward<Args>(args), '\n'),
+     ...);
   }
 };
 
@@ -31,8 +33,20 @@ main(int argc, char* argv[])
   auto well{operation<emplace_front>(&test, 20, 16)};
   auto ref{operation<emplace_back>(&test, 17, 90)};
 
-  std::cout << "Container<int>::emplace_front(): " << well << '\n';
-  std::cout << "Container<int>::emplace_back(): " << ref << '\n';
+  operation<cout>("Container<int>::emplace_front(): ", well, '\n');
+  operation<cout>("Container<int>::emplace_back(): ", ref, '\n');
+
+  std::string test_string{};
+  int test_int{};
+
+  operation<cout>("Enter string: ");
+  operation<cin>(&test_string);
+
+  operation<cout>("Enter number: ");
+  operation<cin>(&test_int);
+
+  operation<cout>("Test string: ", test_string, '\n');
+  operation<cout>("Test int: ", test_int, '\n');
 
   // Assert check
   // operation<push_back>(test);
@@ -42,7 +56,7 @@ main(int argc, char* argv[])
   operation<push_front>(&test, 0, 4);
 
   operation<NoOp>(&test, 17, 43, 50, 23, 99);
-  operation<Test>(test, 17, 43, 50, 23, 99);
+  operation<Test>(17, 43, 50, 23, 99);
 
   operation<Invoke>(
       // NOTE: Policy:Invoke will not handle arg pack

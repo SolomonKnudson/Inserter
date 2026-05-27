@@ -20,6 +20,19 @@ namespace Operator::tags
   OPERATOR_CREATE_TAG(Invoke);
   OPERATOR_CREATE_TAG(FoldInvoke);
 
+  // IOstream
+  OPERATOR_CREATE_TAG(cin);
+  OPERATOR_CREATE_TAG(wcin);
+
+  OPERATOR_CREATE_TAG(cout);
+  OPERATOR_CREATE_TAG(wcout);
+
+  OPERATOR_CREATE_TAG(cerr);
+  OPERATOR_CREATE_TAG(wcerr);
+
+  OPERATOR_CREATE_TAG(clog);
+  OPERATOR_CREATE_TAG(wclog);
+
   // Misc
   OPERATOR_CREATE_TAG(DisplayContainer);
   OPERATOR_CREATE_TAG(NoOp)
