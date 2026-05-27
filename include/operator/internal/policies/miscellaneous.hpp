@@ -4,9 +4,6 @@
 #include <operator/tags.hpp>
 #include <operator/util.hpp>
 
-// 3rd Party
-#include <type_traits/type_traits.hpp>
-
 namespace Operator::policy
 {
   template <> struct Policy<tags::DisplayContainer>

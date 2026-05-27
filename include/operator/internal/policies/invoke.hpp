@@ -4,9 +4,10 @@
 #include <operator/tags.hpp>
 
 // 3rd Party
-#include <type_traits/type_traits.hpp>
 // STL
 #include <functional>
+// Me :)
+#include <type_traits/type_traits.hpp>
 
 namespace Operator::policy
 {

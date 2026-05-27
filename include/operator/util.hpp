@@ -3,10 +3,11 @@
 #include <operator/internal/macros.hpp>
 
 // 3rd Party
-#include <type_traits/type_traits.hpp>
 // STL
 #include <iostream>
 #include <utility>
+// Me :)
+#include <type_traits/type_traits.hpp>
 
 namespace Operator
 {
