@@ -7,11 +7,12 @@
 
 namespace Operator
 {
-  template <typename Tag, typename... Args>
+  template <typename Tag, typename... PolicyTemplateArgs, typename... Args>
   [[nodiscard]] static decltype(auto)
   operation(Args&&... args)
   {
-    return policy::Policy<Tag>::invoke(std::forward<Args>(args)...);
+    return policy::Policy<Tag>::template invoke<PolicyTemplateArgs...>(
+        std::forward<Args>(args)...);
   }
 } // namespace Operator
 #endif // OPERATOR_OPERATION_HPP
