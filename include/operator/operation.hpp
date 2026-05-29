@@ -11,8 +11,15 @@ namespace Operator
   [[nodiscard]] static decltype(auto)
   operation(Args&&... args)
   {
-    return policy::Policy<Tag>::template invoke<PolicyTemplateArgs...>(
-        std::forward<Args>(args)...);
+    if constexpr (sizeof...(PolicyTemplateArgs) == 0)
+    {
+      return policy::Policy<Tag>::invoke(std::forward<Args>(args)...);
+    }
+    else
+    {
+      return policy::Policy<Tag>::template invoke<PolicyTemplateArgs...>(
+          std::forward<Args>(args)...);
+    }
   }
 } // namespace Operator
 #endif // OPERATOR_OPERATION_HPP
