@@ -23,8 +23,8 @@ main(int argc, char* argv[])
   using namespace Operator;
   using namespace Operator::tags;
 
-  std::cout << "Can deref int*: " << std::boolalpha
-            << type_traits::can_deref_v<int*> << '\n';
+  operation<tags::cout>(
+      "Can deref int*: ", std::boolalpha, type_traits::can_deref_v<int*>, '\n');
 
   std::list<int> test{};
   //std::vector<int> test{};
@@ -49,8 +49,8 @@ main(int argc, char* argv[])
   operation<cout>("Test int: ", test_int, '\n');
 
   // Assert check
-  // operation<push_back>(test);
-  // operation<push_front>(&test);
+  //operation<push_back>(test);
+  //operation<push_front>(&test);
 
   operation<push_back>(test, 999, 444);
   operation<push_front>(&test, 0, 4);
@@ -101,5 +101,6 @@ main(int argc, char* argv[])
       &test,
       [](const auto& elem) { std::cout << elem << ' '; },
       "util::display_container(container, printer): ");
+
   return 0;
 }

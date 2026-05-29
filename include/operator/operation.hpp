@@ -7,7 +7,7 @@
 
 namespace Operator
 {
-  template <typename Tag,
+  template <typename PolicyTag,
             typename... PolicyTemplateArgs,
             typename... PolicyArgs>
   [[nodiscard]] static decltype(auto)
@@ -15,14 +15,14 @@ namespace Operator
   {
     if constexpr (sizeof...(PolicyTemplateArgs) == 0)
     {
-      return policy::Policy<Tag>::invoke(std::forward<PolicyArgs>(args)...);
+      return policy::Policy<PolicyTag>::invoke(
+          std::forward<PolicyArgs>(args)...);
     }
     else
     {
-      return policy::Policy<Tag>::template invoke<PolicyTemplateArgs...>(
+      return policy::Policy<PolicyTag>::template invoke<PolicyTemplateArgs...>(
           std::forward<PolicyArgs>(args)...);
     }
   }
 } // namespace Operator
 #endif // OPERATOR_OPERATION_HPP
-
