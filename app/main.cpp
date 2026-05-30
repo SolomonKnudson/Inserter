@@ -4,14 +4,14 @@
 #include <iostream>
 #include <list>
 
-OPERATOR_CREATE_TAG(Test);
-template <> struct Operator::policy::Policy<Test>
+OPERATOR_CREATE_IMPL_TAG(Test);
+template <> struct Operator::Impl<Test>
 {
   template <typename... Args>
   static void
   invoke(Args&&... args)
   {
-    (Operator::operation<Operator::tags::cout>(
+    (Operator::operation<Operator::builtin::cout>(
          "operation<Test>(args...): ", std::forward<Args>(args), '\n'),
      ...);
   }
@@ -21,9 +21,9 @@ int
 main(int argc, char* argv[])
 {
   using namespace Operator;
-  using namespace Operator::tags;
+  using namespace Operator::builtin;
 
-  operation<tags::cout>(
+  operation<cout>(
       "Can deref int*: ", std::boolalpha, type_traits::can_deref_v<int*>, '\n');
 
   std::list<int> test{};
@@ -59,7 +59,7 @@ main(int argc, char* argv[])
   operation<Test>(17, 43, 50, 23, 99);
 
   operation<Invoke>(
-      // NOTE: Policy:Invoke will not handle arg pack
+      // NOTE: Impl:Invoke will not handle arg pack
       [](const auto... elem)
       {
         std::cout << "operation<Invoke>(args...): ";
@@ -72,7 +72,7 @@ main(int argc, char* argv[])
       50);
 
   operation<FoldInvoke>(
-      // NOTE: Policy:FoldInvoke will handle arg pack
+      // NOTE: Impl:FoldInvoke will handle arg pack
       [](const auto& elem)
       { std::cout << "operation<FoldInvoke>(args...): " << elem << '\n'; },
       90,
@@ -81,7 +81,7 @@ main(int argc, char* argv[])
       50);
 
   operation<Invoke>(
-      // NOTE: Policy:Invoke/FoldInvoke must have
+      // NOTE: Impl:Invoke/FoldInvoke must have
       // template functions passed as forwarding lambdas
       [](auto&& container)
       {
