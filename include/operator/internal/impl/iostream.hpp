@@ -1,16 +1,16 @@
-#ifndef OPERATOR_IOSTREAM_POLICIES_HPP
-#define OPERATOR_IOSTREAM_POLICIES_HPP
-#include <operator/policy.hpp>
-#include <operator/tags.hpp>
+#ifndef OPERATOR_INTERNAL_IOSTREAM_IMPLS_HPP
+#define OPERATOR_INTERNAL_IOSTREAM_IMPLS_HPP
+#include <operator/builtin.hpp>
+#include <operator/impl.hpp>
 #include <operator/util.hpp>
 
 // 3rd Party
 // STL
 #include <iostream>
 
-namespace Operator::policy
+namespace Operator
 {
-  template <> struct Policy<tags::cin>
+  template <> struct Impl<builtin::cin>
   {
     template <typename... LHS>
     static void
@@ -20,7 +20,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::wcin>
+  template <> struct Impl<builtin::wcin>
   {
     template <typename... LHS>
     static void
@@ -30,7 +30,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::cout>
+  template <> struct Impl<builtin::cout>
   {
     template <typename... Args>
     static void
@@ -40,7 +40,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::wcout>
+  template <> struct Impl<builtin::wcout>
   {
     template <typename... Args>
     static void
@@ -50,7 +50,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::cerr>
+  template <> struct Impl<builtin::cerr>
   {
     template <typename... Args>
     static void
@@ -60,7 +60,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::wcerr>
+  template <> struct Impl<builtin::wcerr>
   {
     template <typename... Args>
     static void
@@ -70,7 +70,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::clog>
+  template <> struct Impl<builtin::clog>
   {
     template <typename... Args>
     static void
@@ -80,7 +80,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::wclog>
+  template <> struct Impl<builtin::wclog>
   {
     template <typename... Args>
     static void
@@ -89,6 +89,5 @@ namespace Operator::policy
       ((std::wclog << args), ...);
     }
   };
-} // namespace Operator::policy
-#endif // OPERATOR_IOSTREAM_POLICIES_HPP
-
+} // namespace Operator
+#endif // OPERATOR_INTERNAL_IOSTREAM_IMPLS_HPP

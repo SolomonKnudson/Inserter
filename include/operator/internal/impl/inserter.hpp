@@ -1,13 +1,13 @@
-#ifndef OPERATOR_INSERTER_POLICIES_HPP
-#define OPERATOR_INSERTER_POLICIES_HPP
+#ifndef OPERATOR_INTERNAL_INSERTER_IMPLS_HPP
+#define OPERATOR_INTERNAL_INSERTER_IMPLS_HPP
+#include <operator/builtin.hpp>
+#include <operator/impl.hpp>
 #include <operator/internal/concepts.hpp>
-#include <operator/policy.hpp>
-#include <operator/tags.hpp>
 #include <operator/util.hpp>
 
-namespace Operator::policy
+namespace Operator
 {
-  template <> struct Policy<tags::push_front>
+  template <> struct Impl<builtin::push_front>
   {
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(
@@ -20,7 +20,7 @@ namespace Operator::policy
     {
       // Args >=2 to account for container that must be passed
       static_assert(sizeof...(Args) >= 2,
-                    "Operator::policy::Policy<push_front>(args...): "
+                    "Operator::Impl<builtin::push_front>(args...): "
                     "container.push_front(value) must "
                     "be called with at least one value!");
       return (util::deref(std::forward<Container>(container))
@@ -29,7 +29,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::emplace_front>
+  template <> struct Impl<builtin::emplace_front>
   {
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(
@@ -53,7 +53,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::push_back>
+  template <> struct Impl<builtin::push_back>
   {
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(
@@ -66,7 +66,7 @@ namespace Operator::policy
     {
       // Args >=2 to account for container that must be passed
       static_assert(sizeof...(Args) >= 2,
-                    "Operator::policy::Policy<push_back>(args...): "
+                    "Operator::Impl<builtin::push_back>(args...): "
                     "container.push_back(value) must "
                     "be called with at least one value!");
       return (util::deref(std::forward<Container>(container))
@@ -75,7 +75,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::emplace_back>
+  template <> struct Impl<builtin::emplace_back>
   {
     template <typename Container, typename... Args>
     OPERATOR_CREATE_REQUIRES(
@@ -98,5 +98,5 @@ namespace Operator::policy
       }
     }
   };
-} // namespace Operator::policy
-#endif // OPERATOR_INSERTER_POLICIES_HPP
+} // namespace Operator
+#endif // OPERATOR_INTERNAL_INSERTER_IMPLS_HPP

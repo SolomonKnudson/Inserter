@@ -1,27 +1,26 @@
 #ifndef OPERATOR_OPERATION_HPP
 #define OPERATOR_OPERATION_HPP
-#include <operator/internal/policies/policies.hpp>
+#include <operator/internal/impl/impls.hpp>
 
 // STL
 #include <utility>
 
 namespace Operator
 {
-  template <typename PolicyTag,
-            typename... PolicyTemplateArgs,
-            typename... PolicyArgs>
+  template <typename ImplTag,
+            typename... ImplTemplateArgs,
+            typename... ImplArgs>
   [[nodiscard]] static decltype(auto)
-  operation(PolicyArgs&&... args)
+  operation(ImplArgs&&... args)
   {
-    if constexpr (sizeof...(PolicyTemplateArgs) == 0)
+    if constexpr (sizeof...(ImplTemplateArgs) == 0)
     {
-      return policy::Policy<PolicyTag>::invoke(
-          std::forward<PolicyArgs>(args)...);
+      return Impl<ImplTag>::invoke(std::forward<ImplArgs>(args)...);
     }
     else
     {
-      return policy::Policy<PolicyTag>::template invoke<PolicyTemplateArgs...>(
-          std::forward<PolicyArgs>(args)...);
+      return Impl<ImplTag>::template invoke<ImplTemplateArgs...>(
+          std::forward<ImplArgs>(args)...);
     }
   }
 } // namespace Operator

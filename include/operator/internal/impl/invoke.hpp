@@ -1,7 +1,7 @@
-#ifndef OPERATOR_INVOKE_POLICIES_HPP
-#define OPERATOR_INVOKE_POLICIES_HPP
-#include <operator/policy.hpp>
-#include <operator/tags.hpp>
+#ifndef OPERATOR_INTERNAL_INVOKE_IMPLS_HPP
+#define OPERATOR_INTERNAL_INVOKE_IMPLS_HPP
+#include <operator/builtin.hpp>
+#include <operator/impl.hpp>
 
 // 3rd Party
 // STL
@@ -9,11 +9,11 @@
 // Me :)
 #include <type_traits/type_traits.hpp>
 
-namespace Operator::policy
+namespace Operator
 {
-  // NOTE: Policy:Invoke/FoldInvoke must have
+  // NOTE: Impl:Invoke/FoldInvoke must have
   // template functions passed as forwarding lambdas
-  template <> struct Policy<tags::Invoke>
+  template <> struct Impl<builtin::Invoke>
   {
     template <typename Function,
               typename... Args,
@@ -21,13 +21,13 @@ namespace Operator::policy
     static decltype(auto)
     invoke(Function&& function, Args&&... args)
     {
-      // NOTE: Policy:Invoke will not handle arg pack
+      // NOTE: Impl:Invoke will not handle arg pack
       return std::invoke(std::forward<Function>(function),
                          std::forward<Args>(args)...);
     }
   };
 
-  template <> struct Policy<tags::FoldInvoke>
+  template <> struct Impl<builtin::FoldInvoke>
   {
     template <
         typename Function,
@@ -37,12 +37,11 @@ namespace Operator::policy
     static decltype(auto)
     invoke(Function&& function, Args&&... args)
     {
-      // NOTE: Policy:FoldInvoke will handle arg pack
+      // NOTE: Impl:FoldInvoke will handle arg pack
       return (std::invoke(std::forward<Function>(function),
                           std::forward<Args>(args)),
               ...);
     }
   };
-} // namespace Operator::policy
-#endif // OPERATOR_INVOKE_POLICIES_HPP
-
+} // namespace Operator
+#endif // OPERATOR_INTERNAL_INVOKE_IMPLS_HPP

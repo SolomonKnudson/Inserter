@@ -1,12 +1,12 @@
-#ifndef OPERATOR_MISCELLANEOUS_POLICIES_HPP
-#define OPERATOR_MISCELLANEOUS_POLICIES_HPP
-#include <operator/policy.hpp>
-#include <operator/tags.hpp>
+#ifndef OPERATOR_INTERNAL_MISCELLANEOUS_IMPLS_HPP
+#define OPERATOR_INTERNAL_MISCELLANEOUS_IMPLS_HPP
+#include <operator/builtin.hpp>
+#include <operator/impl.hpp>
 #include <operator/util.hpp>
 
-namespace Operator::policy
+namespace Operator
 {
-  template <> struct Policy<tags::DisplayContainer>
+  template <> struct Impl<builtin::DisplayContainer>
   {
     template <typename Container, typename Printer>
     static void
@@ -22,7 +22,7 @@ namespace Operator::policy
     }
   };
 
-  template <> struct Policy<tags::NoOp>
+  template <> struct Impl<builtin::NoOp>
   {
     template <typename... Args>
     static void
@@ -30,5 +30,5 @@ namespace Operator::policy
     {
     }
   };
-} // namespace Operator::policy
-#endif // OPERATOR_MISCELLANEOUS_POLICIES_HPP
+} // namespace Operator
+#endif // OPERATOR_INTERNAL_MISCELLANEOUS_IMPLS_HPP
