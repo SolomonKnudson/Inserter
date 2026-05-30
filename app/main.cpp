@@ -49,8 +49,8 @@ main(int argc, char* argv[])
   operation<cout>("Test int: ", test_int, '\n');
 
   // Assert check
-  //operation<push_back>(test);
-  //operation<push_front>(&test);
+  // operation<push_back>(test);
+  // operation<push_front>(&test);
 
   operation<push_back>(test, 999, 444);
   operation<push_front>(&test, 0, 4);

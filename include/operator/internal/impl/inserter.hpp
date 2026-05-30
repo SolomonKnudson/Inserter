@@ -23,6 +23,7 @@ namespace Operator
           sizeof...(Values) > 0,
           "Operator::Impl<builtin::push_front>(container, values...): "
           "must be called with at least one value!");
+
       return (util::deref(std::forward<Container>(container))
                   .push_back(std::forward<Values>(values)),
               ...);
@@ -69,6 +70,7 @@ namespace Operator
       static_assert(sizeof...(Values) > 0,
                     "Operator::Impl<builtin::push_back>(container, values...): "
                     "must be called with at least one value!");
+
       return (util::deref(std::forward<Container>(container))
                   .push_back(std::forward<Values>(values)),
               ...);
